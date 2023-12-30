@@ -949,7 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c53a1182d61b449a2b8075d2761a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpTime: 0.02
+  lerpTime: 0.15
   tf_BallHolder: {fileID: 821934173}
   cam: {fileID: 519420031}
   tf_BallContainerParent: {fileID: 1862321916}
