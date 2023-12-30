@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 destPos;
     private bool isArrived = true;
 
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     // Update is called once per frame
     void Update()
     {
