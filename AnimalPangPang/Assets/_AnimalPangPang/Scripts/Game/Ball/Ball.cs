@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public int myIndex = 0;
+    public int level = 0;
 
 
 
@@ -15,14 +15,34 @@ public class Ball : MonoBehaviour
             return;
 
         var collisionBall = collision.GetComponent<Ball>();
-
-        if (collisionBall.myIndex != myIndex)
+        if (collisionBall.level != level)
             return;
 
+        // Other Ball Destroy
         Destroy(collisionBall.gameObject);
 
-        myIndex++;
-        transform.localScale = transform.localScale * 1.25f;
+
+        // Level Up
+        level++;
+
+        // Last Level
+        var isLastBallLevel = BallManager.Instance.IsLastBallLevel(level);
+        if (isLastBallLevel)
+        {
+            transform.localScale *= 1.25f;
+            return;
+        }
+
+
+
+        // New Ball
+        var newBallPrefab = BallManager.Instance.GetBall(level);
+        var newBall = Instantiate(newBallPrefab, transform.parent);
+        newBall.transform.position = transform.position;
+        newBall.GetComponent<Ball>().level = level;
+
+        
+        Destroy(this.gameObject);
     }
 
 }

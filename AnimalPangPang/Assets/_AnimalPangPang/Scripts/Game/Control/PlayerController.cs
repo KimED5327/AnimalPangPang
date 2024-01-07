@@ -12,13 +12,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform tf_BallContainerParent;
     [SerializeField] private GameObject go_PrefabBall;
 
-
+    [SerializeField] private float waitTime = 0.5f;
+    private float waitCurTime;
+    
     private bool isTouchDown;
     private bool isTouchUp;
 
 
     private Vector3 destPos;
     private bool isArrived = true;
+
+
+
 
     private void Start()
     {
@@ -28,12 +33,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        waitCurTime += Time.deltaTime;
+        Move();
+
+
+        // 마구 클릭 방지용
+        if(waitTime < waitCurTime)
         {
-            isTouchDown = true;
+            // 클릭시
+            if (Input.GetMouseButtonDown(0))
+            {
+                waitCurTime = 0;
+                isTouchDown = true;
+            }
+
+
         }
 
-
+        // 클릭 방출
         if (Input.GetMouseButtonUp(0))
         {
             isTouchDown = false;
@@ -44,12 +61,11 @@ public class PlayerController : MonoBehaviour
             isTouchUp = true;
         }
 
-        TouchDown();
-        Move();
+        UpdateTouchPoint();
     }
 
 
-    private void TouchDown()
+    private void UpdateTouchPoint()
     {
         if (false == isTouchDown)
             return;
