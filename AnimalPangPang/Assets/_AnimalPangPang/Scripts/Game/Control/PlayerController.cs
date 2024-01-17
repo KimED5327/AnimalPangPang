@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform tf_BallContainerParent;
     [SerializeField] private GameObject go_PrefabBall;
 
+    [SerializeField] private GameObject go_Line;
+
     [SerializeField] private float waitTime = 0.5f;
     private float waitCurTime;
     
     private bool isTouchDown;
-    private bool isTouchUp;
+    private bool canShowLine;
 
 
     private Vector3 destPos;
@@ -36,29 +38,21 @@ public class PlayerController : MonoBehaviour
         waitCurTime += Time.deltaTime;
         Move();
 
-
         // 마구 클릭 방지용
         if(waitTime < waitCurTime)
         {
-            // 클릭시
+            // 터치 가능할때 터치하면
             if (Input.GetMouseButtonDown(0))
             {
                 waitCurTime = 0;
                 isTouchDown = true;
             }
-
-
         }
 
         // 클릭 방출
         if (Input.GetMouseButtonUp(0))
         {
             isTouchDown = false;
-
-            if (false == isTouchDown)
-                return;
-
-            isTouchUp = true;
         }
 
         UpdateTouchPoint();
