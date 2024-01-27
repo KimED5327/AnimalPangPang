@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
         if (destPos == Vector3.zero)
             return;
 
+        if (Time.deltaTime <= 0)
+            return;
 
         tf_BallHolder.position = Vector3.Lerp(tf_BallHolder.position, destPos, lerpTime);
 

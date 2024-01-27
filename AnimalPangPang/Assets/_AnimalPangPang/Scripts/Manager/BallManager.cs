@@ -7,6 +7,7 @@ using UnityEngine;
 public class BallManager : MonoBehaviour
 {
 
+    [SerializeField] private GameObject ballEffect;
     [SerializeField] private List<GameObject> ballList;
 
     private static BallManager ballManager;
@@ -25,6 +26,13 @@ public class BallManager : MonoBehaviour
     }
 
 
+    public void CreateBallEffect(Vector3 pos, int level)
+    {
+        var effect = Instantiate(ballEffect);
+        effect.transform.position = pos;
+
+        effect.transform.localScale = Vector3.one + ((level - 1) * 1.1f * Vector3.one);
+    }
 
     public GameObject GetBall(int level)
     {
